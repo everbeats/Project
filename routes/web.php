@@ -20,3 +20,5 @@ Route::resource('admin/reel','ReelController');
 Route::resource('admin/line','LineController');
 Route::resource('admin/rod','RodController');
 Route::resource('admin/hook','HookController');
+Route::resource('admin/img','ImageController');
+Route::resource('admin/photo','PhotoController');

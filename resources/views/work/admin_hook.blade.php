@@ -34,15 +34,32 @@
                             <tbody>
                                 @foreach($hooks as $row)
                                     <tr>
-                                         <td>{{$row->hook_name}}</td>
-                                         <td align="center">{{$row->hook_size}}</td>
-                                         <td>{{$row->hook_color}}</td>
-                                         <td>{{$row->hook_type}}</td>
-                                         <td>{{$row->hook_brand}}</td>
-                                         <td><a href="{{action('HookController@show',$row->hook_id)}}" class="btn btn-primary">View img</a></td>
-                                         <td>{{$row->hook_price}}</td>
-                                         <td><a href="{{action('HookController@edit',$row->hook_id)}}" class="btn btn-primary">Edit</a></td>
-                                         <td>
+                                         <td style="text-align: center;">{{$row->hook_name}}</td>
+                                         <td style="text-align: center;">{{$row->hook_size}}</td>
+                                         <td style="text-align: center;">{{$row->hook_color}}</td>
+                                         <td style="text-align: center;">{{$row->hook_type}}</td>
+                                         <td style="text-align: center;">{{$row->hook_brand}}</td>                                    
+                                         <td style="text-align: center;"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{$row->hook_id}}">Image</button>  
+                                                <div class="modal fade" id="{{$row->hook_id}}" role="dialog">
+                                                    <div class="modal-dialog">                                                  
+                                                        <div class="modal-content">                                            
+                                                            <div class="modal-header">                                   
+                                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                <h4 class="modal-title">รูปภาพ</h4>
+                                                            </div>                                  
+                                                            <div class="modal-body">
+                                                            <img src="{{action('HookController@show',$row->hook_id)}}" alt="" width="565">
+                                                            </div>
+                                                            <div class="modal-footer">                            
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                         <td style="text-align: center;">{{$row->hook_price}}</td>
+                                         <td style="text-align: center;"><a href="{{action('HookController@edit',$row->hook_id)}}" class="btn btn-primary">Edit</a></td>
+                                         <td style="text-align: center;">
                                              <form method="post" class="delete_form" action="{{action('HookController@destroy',$row->hook_id)}}" >
                                              {{csrf_field()}}
                                              <input type="hidden" name="_method" value="DELETE">

@@ -36,19 +36,34 @@
                          
                                 @foreach($rods as $row) 
                                 <tr>
-                                    <td>{{$row->rod_name}}</td>
-                                    <td align="center">{{$row->rod_length}}</td>
-                                    <td>{{$row->rod_color}}</td>
-                                    <td>{{$row->rod_power}}</td>
-                                    <td align="center">{{$row->rod_line}}</td>
-                                    <td>{{$row->rod_type}}</td>
-                                    <td>{{$row->rod_brand}}</td>
-                                    <td><a href="{{action('RodController@show',$row->rod_id)}}" class="btn btn-primary">View img</a></td>
-                                    <td>{{$row->rod_price}}</td>
-                                    <td>
-                                        <a href="{{action('RodController@edit', $row->rod_id)}}" class="btn btn-primary">Edit</a>
+                                    <td style="text-align: center;">{{$row->rod_name}}</td>
+                                    <td style="text-align: center;">{{$row->rod_length}}</td>
+                                    <td style="text-align: center;">{{$row->rod_color}}</td>
+                                    <td style="text-align: center;">{{$row->rod_power}}</td>
+                                    <td style="text-align: center;">{{$row->rod_line}}</td>
+                                    <td style="text-align: center;">{{$row->rod_type}}</td>
+                                    <td style="text-align: center;">{{$row->rod_brand}}</td>
+                                    <td style="text-align: center;"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{$row->rod_id}}">Image</button>  
+                                        <div class="modal fade" id="{{$row->rod_id}}" role="dialog">
+                                            <div class="modal-dialog">                                          
+                                                <div class="modal-content">                                                    
+                                                    <div class="modal-header">                                                    
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">รูปภาพ</h4>
+                                                    </div>                                               
+                                                    <div class="modal-body">
+                                                    <img src="{{action('RodController@show',$row->rod_id)}}" alt="" width="565">
+                                                    </div>
+                                                    <div class="modal-footer">                                                               
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td>
+                                    <td style="text-align: center;">{{$row->rod_price}}</td>
+                                    <td style="text-align: center;"><a href="{{action('RodController@edit', $row->rod_id)}}" class="btn btn-primary">Edit</a></td>
+                                    <td style="text-align: center;">
                                         <form method="post" class="delete_form" action="{{action('RodController@destroy',$row->rod_id)}}" >
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="DELETE">
@@ -59,6 +74,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                    <div></div>                    
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->

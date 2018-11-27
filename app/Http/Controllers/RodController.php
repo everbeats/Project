@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FishingRod;
+use Illuminate\Support\Facades\Input;
+use finfo;
 class RodController extends Controller
 {
     /**
@@ -57,6 +59,9 @@ class RodController extends Controller
                                 'rod_image' => $request->get('rod_image'),
                                 'rod_price' => $request->get('rod_price')
         ]);
+        $file = Input::file('rod_image');
+        $contents = $file->openFile()->fread($file->getSize());
+        $rods->rod_image = $contents;
         $rods->save();
         return redirect()->route('rod.create');
     }
@@ -69,7 +74,10 @@ class RodController extends Controller
      */
     public function show($id)
     {
-        //
+        $rods = FishingRod::find($id);
+        return response()->make($rods->rod_image, 200, array(
+            'Content-Type' => (new finfo(FILEINFO_MIME))->buffer($rods->rod_image)
+        ));
     }
 
     /**
@@ -112,7 +120,9 @@ class RodController extends Controller
         $rods->rod_line = $request->input('rod_line');
         $rods->rod_type = $request->input('rod_type');
         $rods->rod_brand = $request->input('rod_brand');
-        $rods->rod_image = $request->input('rod_image');
+        $file = Input::file('rod_image');
+        $contents = $file->openFile()->fread($file->getSize());
+        $rods->rod_image = $contents;
         $rods->rod_price = $request->input('rod_price');
         $rods->save();
         return redirect()->route('rod.index');

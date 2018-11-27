@@ -66,7 +66,7 @@
 
                          <div class="col-md-6">
                             <label>Image</label>
-                            <input class="form-control" name="rod_image" type="file" required="" value="{{$rods->rod_image}}"><br> 
+                            <input class="form-control" name="rod_image" type="file" required="" value="{{$rods->rod_id}}"><br> 
                         </div>
 
                     </div>

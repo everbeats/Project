@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FishingReel;
+use Illuminate\Support\Facades\Input;
+use finfo;
 class ReelController extends Controller
 {
     /**
@@ -50,9 +52,11 @@ class ReelController extends Controller
                                   'reel_color' => $request->get('reel_color'),
                                   'reel_type' => $request->get('reel_type'),
                                   'reel_brand' => $request->get('reel_brand'),
-                                  'reel_image' => $request->get('reel_image'),
                                   'reel_price' => $request->get('reel_price')
         ]);
+        $file = Input::file('reel_image');
+        $contents = $file->openFile()->fread($file->getSize());
+        $reels->reel_image = $contents;
         $reels->save();
         return redirect()->route('reel.create');
     }
@@ -65,7 +69,10 @@ class ReelController extends Controller
      */
     public function show($id)
     {
-        //
+        $reels = FishingReel::find($id);
+        return response()->make($reels->reel_image, 200, array(
+            'Content-Type' => (new finfo(FILEINFO_MIME))->buffer($reels->reel_image)
+        ));
     }
 
     /**
@@ -103,7 +110,9 @@ class ReelController extends Controller
         $reels->reel_color = $request->input('reel_color');
         $reels->reel_type = $request->input('reel_type');
         $reels->reel_brand = $request->input('reel_brand');
-        $reels->reel_image = $request->input('reel_image');
+        $file = Input::file('reel_image');
+        $contents = $file->openFile()->fread($file->getSize());
+        $reels->reel_image = $contents;
         $reels->reel_price = $request->input('reel_price');
         $reels->save();
         return redirect()->route('reel.index');
