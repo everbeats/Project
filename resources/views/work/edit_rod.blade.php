@@ -75,7 +75,7 @@
                     <input class="btn btn-primary btn-block" type="submit" value="submit">  
                     <input type="hidden" name="_method" value="PATCH" >
                 </form>
-            </form>        
+            </form>
         </div>
     </div>
 </div>
